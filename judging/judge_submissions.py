@@ -56,8 +56,9 @@ class HackathonJudge:
     def read_readme(self, project_dir: str) -> str:
         """Read and return README content"""
         readme_files = ["README.md", "README.txt", "readme.md", "readme.txt"]
+        project_path = Path(project_dir)
         for readme in readme_files:
-            readme_path = Path(project_dir) / readme
+            readme_path = project_path / readme
             if readme_path.exists():
                 try:
                     return readme_path.read_text(encoding='utf-8')
@@ -67,7 +68,7 @@ class HackathonJudge:
     
     def try_setup(self, project_dir: str) -> Tuple[bool, str]:
         """Attempt to follow setup instructions"""
-        original_dir = os.getcwd()
+        original_dir = Path.cwd()
         setup_log = []
         
         try:
@@ -114,7 +115,7 @@ class HackathonJudge:
     
     def try_run_application(self, project_dir: str) -> Tuple[bool, str]:
         """Attempt to run the application"""
-        original_dir = os.getcwd()
+        original_dir = Path.cwd()
         run_log = []
         
         try:
@@ -290,8 +291,8 @@ def main():
         print("Where submissions.txt contains one GitHub repo URL per line")
         sys.exit(1)
     
-    submissions_file = sys.argv[1]
-    if not Path(submissions_file).exists():
+    submissions_file = Path(sys.argv[1])
+    if not submissions_file.exists():
         print(f"Error: {submissions_file} not found")
         sys.exit(1)
     

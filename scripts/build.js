@@ -4,7 +4,7 @@ const fs = require('fs');
 const Dotenv = require('dotenv-webpack');
 
 // Ensure the dist directory exists
-const distDir = path.resolve(__dirname, '../dist');
+const distDir = path.resolve(__dirname, '..', 'dist');
 if (!fs.existsSync(distDir)) {
     fs.mkdirSync(distDir, { recursive: true });
 }
@@ -12,8 +12,8 @@ if (!fs.existsSync(distDir)) {
 // Copy static files
 const staticFiles = ['manifest.json', 'assets'];
 staticFiles.forEach(file => {
-    const sourcePath = path.resolve(__dirname, '..', file);
-    const destPath = path.resolve(distDir, file);
+    const sourcePath = path.join(__dirname, '..', file);
+    const destPath = path.join(distDir, file);
     
     if (fs.existsSync(sourcePath)) {
         if (fs.lstatSync(sourcePath).isDirectory()) {
@@ -25,7 +25,7 @@ staticFiles.forEach(file => {
 });
 
 // Copy HTML and CSS files
-const sourceDir = path.resolve(__dirname, '../src');
+const sourceDir = path.join(__dirname, '..', 'src');
 const copyFiles = (dir) => {
     const files = fs.readdirSync(dir);
     files.forEach(file => {
@@ -50,12 +50,12 @@ copyFiles(sourceDir);
 const config = {
     mode: 'production',
     entry: {
-        popup: './src/popup/popup.js',
-        background: './src/background/background.js',
-        content: './src/content/content.js'
+        popup: path.join(__dirname, '..', 'src', 'popup', 'popup.js'),
+        background: path.join(__dirname, '..', 'src', 'background', 'background.js'),
+        content: path.join(__dirname, '..', 'src', 'content', 'content.js')
     },
     output: {
-        path: path.resolve(distDir, 'src'),
+        path: path.join(distDir, 'src'),
         filename: '[name]/[name].js'
     },
     resolve: {
