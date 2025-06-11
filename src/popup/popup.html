@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lego Brick Finder</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Lego Brick Finder</h1>
+        </header>
+        
+        <div class="search-container">
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Enter brick description or part number..."
+                autocomplete="off"
+            >
+            <button id="searchButton">Search</button>
+        </div>
+
+        <div class="results-container">
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+            </div>
+            <div id="results" class="results"></div>
+        </div>
+    </div>
+    <script src="popup.js" defer></script>
+</body>
+</html> 
